@@ -4,10 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.DatePicker
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -15,9 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.chinalwb.are.AREditText
 import com.chinalwb.are.AREditor
+import com.chinalwb.are.colorpicker.ColorPickerView
 import com.chinalwb.are.styles.toolbar.ARE_ToolbarDefault
 import com.chinalwb.are.styles.toolbar.IARE_Toolbar
 import com.chinalwb.are.styles.toolitems.*
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -28,6 +27,8 @@ import uz.gita.noteapp_by_xr.R
 import uz.gita.noteapp_by_xr.data.models.NoteData
 import uz.gita.noteapp_by_xr.presenter.AddNoteViewModel
 import uz.gita.noteapp_by_xr.presenter.impl.AddNoteViewModelImpl
+import uz.gita.noteapp_by_xr.ui.dialogs.ColorPickDialog
+import uz.gita.noteapp_by_xr.utils.getDrawables
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,6 +41,8 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
     private lateinit var btnSave: ImageButton
     private lateinit var btnBack: ImageButton
     private lateinit var titleInput: TextInputEditText
+    private lateinit var colorPicker: ShapeableImageView
+    private var colorNumber = R.drawable.color_pick_yellow
 
     private val viewModel: AddNoteViewModel by viewModels<AddNoteViewModelImpl>()
 
@@ -55,6 +58,8 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
             btnBack = findViewById(R.id.btnBackFromAdd)
             btnSave = findViewById(R.id.btnSave)
             titleInput = findViewById(R.id.text_input)
+            colorPicker = findViewById(R.id.colorPick)
+            colorPicker.setImageResource(colorNumber)
 
             mToolbar = findViewById(R.id.areToolbar)
             val bold: IARE_ToolItem = ARE_ToolItem_Bold()
@@ -62,6 +67,7 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
             val underline: IARE_ToolItem = ARE_ToolItem_Underline()
             val strikethrough: IARE_ToolItem = ARE_ToolItem_Strikethrough()
             val quote: IARE_ToolItem = ARE_ToolItem_Quote()
+            val color: IARE_ToolItem = ARE_ToolItem_FontColor()
             val listNumber: IARE_ToolItem = ARE_ToolItem_ListNumber()
             val listBullet: IARE_ToolItem = ARE_ToolItem_ListBullet()
             val hr: IARE_ToolItem = ARE_ToolItem_Hr()
@@ -79,6 +85,7 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
             mToolbar.addToolbarItem(underline)
             mToolbar.addToolbarItem(strikethrough)
             mToolbar.addToolbarItem(quote)
+            mToolbar.addToolbarItem(color)
             mToolbar.addToolbarItem(listNumber)
             mToolbar.addToolbarItem(listBullet)
             mToolbar.addToolbarItem(hr)
@@ -162,7 +169,8 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
                     0,
                     title,
                     desc,
-                    date
+                    date,
+                    colorNumber
                 )
 
                 viewModel.addToBase(note)
@@ -172,6 +180,17 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
 
             btnBack.setOnClickListener {
                 findNavController().navigateUp()
+            }
+
+            colorPicker.setOnClickListener{
+                val dialog = ColorPickDialog(requireContext())
+
+                dialog.setOnColorClickListener {
+                    colorNumber = it
+                    colorPicker.setImageResource(it.getDrawables())
+                }
+
+                dialog.show()
             }
         }
 

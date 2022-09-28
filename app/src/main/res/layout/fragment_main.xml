@@ -10,19 +10,21 @@
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="#039BE5"
+        android:background="#FF865E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnDeleteAll"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:backgroundTint="#FF0000"
-        android:text="DELETE ALL"
-        android:textColor="@color/white"
+        android:elevation="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="16dp"
+        android:backgroundTint="#FE4040"
+        android:gravity="center"
+        app:tint = "@color/white"
+        app:srcCompat="@drawable/ic_baseline_cleaning_services_24"
         app:layout_constraintBottom_toBottomOf="@+id/action_bar"
         app:layout_constraintEnd_toEndOf="@+id/action_bar"
         app:layout_constraintTop_toTopOf="@+id/action_bar" />
@@ -70,6 +72,7 @@
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#FF865E"
         app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

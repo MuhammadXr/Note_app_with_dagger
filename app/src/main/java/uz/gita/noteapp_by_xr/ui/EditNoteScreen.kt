@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
@@ -19,6 +20,7 @@ import com.chinalwb.are.AREditText
 import com.chinalwb.are.styles.toolbar.ARE_ToolbarDefault
 import com.chinalwb.are.styles.toolbar.IARE_Toolbar
 import com.chinalwb.are.styles.toolitems.*
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
@@ -31,6 +33,8 @@ import uz.gita.noteapp_by_xr.presenter.AddNoteViewModel
 import uz.gita.noteapp_by_xr.presenter.UpdateNoteViewModel
 import uz.gita.noteapp_by_xr.presenter.impl.AddNoteViewModelImpl
 import uz.gita.noteapp_by_xr.presenter.impl.UpdateNoteViewModelImpl
+import uz.gita.noteapp_by_xr.ui.dialogs.ColorPickDialog
+import uz.gita.noteapp_by_xr.utils.getDrawables
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,6 +48,8 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
     private lateinit var btnBack: ImageButton
     private lateinit var btnDelete: ImageButton
     private lateinit var titleInput: TextInputEditText
+    private lateinit var colorPicker: ShapeableImageView
+    private var colorNumber = R.drawable.color_pick_yellow
 
     private val viewModel: UpdateNoteViewModel by viewModels<UpdateNoteViewModelImpl>()
 
@@ -65,6 +71,9 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
             btnSave = findViewById(R.id.btnSave)
             btnDelete = findViewById(R.id.btnDelete)
             titleInput = findViewById(R.id.text_input)
+
+            colorPicker = findViewById(R.id.colorPick)
+            colorPicker.setImageResource(noteData.colorNumber.getDrawables())
 
             mToolbar = findViewById(R.id.areToolbar)
             val bold: IARE_ToolItem = ARE_ToolItem_Bold()
@@ -157,6 +166,7 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
                 noteData.title = title
                 noteData.description = desc
                 noteData.date = date
+                noteData.colorNumber = colorNumber
 
                 viewModel.update(noteData)
                 Toast.makeText(requireContext(), "SAVED", Toast.LENGTH_SHORT).show()
@@ -167,7 +177,7 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
 
                 val dialog = AlertDialog.Builder(requireContext())
 
-                dialog.setMessage("note:${noteData.title} o'chirilsinmi?")
+                dialog.setMessage("Do you want to delete Note: ${noteData.title} ?")
                     .setNegativeButton("NO"
                     ) { p0, p1 -> }
                     .setPositiveButton("YES"){ p0, p1 ->
@@ -182,6 +192,17 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
 
             btnBack.setOnClickListener {
                 findNavController().navigateUp()
+            }
+
+            colorPicker.setOnClickListener {
+                val dialog = ColorPickDialog(requireContext())
+
+                dialog.setOnColorClickListener {
+                    colorNumber = it
+                    colorPicker.setImageResource(it.getDrawables())
+                }
+
+                dialog.show()
             }
         }
 

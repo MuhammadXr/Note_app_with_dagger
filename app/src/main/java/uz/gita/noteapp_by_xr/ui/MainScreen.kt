@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,7 +30,7 @@ class MainScreen : Fragment(R.layout.fragment_main) {
     private val viewModel: MainViewModel by viewModels<MainViewModelImpl>()
     //private lateinit var viewPager: ViewPager2
     private lateinit var noteList: RecyclerView
-    private lateinit var btnDeleteAll :Button
+    private lateinit var btnDeleteAll :ImageButton
     private val adapter: NotesAdapter by lazy { NotesAdapter() }
 
     private lateinit var btnAdd:FloatingActionButton

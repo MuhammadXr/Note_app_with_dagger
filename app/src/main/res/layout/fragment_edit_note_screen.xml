@@ -11,67 +11,110 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentTop="true"
-        android:background="#00ACC1"
+        android:background="#FF865E"
         are:layout_constraintEnd_toEndOf="parent"
         are:layout_constraintStart_toStartOf="parent"
         are:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/btnBackFromAdd"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:layout_margin="10dp"
-            android:backgroundTint="#00000000"
-            are:layout_constraintStart_toStartOf="parent"
-            are:layout_constraintTop_toTopOf="parent"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toStartOf="@id/text_input_layout"
-            are:srcCompat="@drawable/arrow_back_40" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            are:layout_constraintStart_toEndOf="@id/btnBackFromAdd"
-            are:layout_constraintTop_toTopOf="parent"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toStartOf="@id/btnDelete"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:hint="Note Name">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_input"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#fff"
-
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/btnSave"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="6dp"
-            are:layout_constraintStart_toEndOf="@id/btnDelete"
-            are:layout_constraintEnd_toEndOf="parent"
-            are:layout_constraintTop_toTopOf="parent"
-            are:layout_constraintBottom_toBottomOf="parent"
-            android:layout_toEndOf="@id/text_input_layout"
             android:backgroundTint="#00000000"
-            android:src="@drawable/ic_baseline_save_40" />
+            android:scaleX=".8"
+            android:scaleY=".8"
+            android:layout_marginHorizontal="4dp"
+            are:layout_constraintBottom_toBottomOf="parent"
+            are:layout_constraintEnd_toStartOf="@+id/text_input_layout"
+            are:layout_constraintHorizontal_bias="0.5"
+            are:layout_constraintStart_toStartOf="parent"
+            are:layout_constraintTop_toTopOf="parent"
+            are:srcCompat="@drawable/arrow_back_40" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/text_input_layout"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            are:cardCornerRadius="15dp"
+            are:layout_constraintBottom_toBottomOf="parent"
+            are:layout_constraintEnd_toStartOf="@+id/colorPick"
+            are:layout_constraintStart_toEndOf="@+id/btnBackFromAdd"
+            are:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Note Name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/colorPick"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            are:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circleImageView"
+            android:clickable="true"
+            android:focusable="true"
+            are:srcCompat="@drawable/color_pick_orange"
+            android:layout_marginHorizontal="4dp"
+            are:layout_constraintBottom_toBottomOf="parent"
+            are:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            are:layout_constraintHorizontal_bias="0.5"
+            are:layout_constraintStart_toEndOf="@+id/text_input_layout"
+            are:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/pick"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="1dp"
+            android:layout_gravity="center"
+            android:rotation="-20"
+            are:layout_constraintTop_toTopOf="@id/colorPick"
+            are:layout_constraintBottom_toBottomOf="@id/colorPick"
+            are:layout_constraintStart_toStartOf="@id/colorPick"
+            are:layout_constraintEnd_toEndOf="@id/colorPick"
+            are:srcCompat="@drawable/ic_baseline_colorize_24" />
 
         <ImageButton
             android:id="@+id/btnDelete"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginHorizontal="6dp"
             android:backgroundTint="#00000000"
+            android:layout_marginHorizontal="4dp"
+            android:scaleX=".8"
+            android:scaleY=".8"
             android:src="@drawable/ic_baseline_delete_forever_24"
             are:layout_constraintBottom_toBottomOf="parent"
             are:layout_constraintEnd_toStartOf="@id/btnSave"
-            are:layout_constraintStart_toEndOf="@id/text_input_layout"
+            are:layout_constraintHorizontal_bias="0.5"
+            are:layout_constraintStart_toEndOf="@+id/colorPick"
+            are:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageButton
+            android:id="@+id/btnSave"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:backgroundTint="#00000000"
+            android:layout_marginHorizontal="4dp"
+            android:scaleX=".8"
+            android:scaleY=".8"
+            android:src="@drawable/ic_baseline_save_40"
+            are:layout_constraintBottom_toBottomOf="parent"
+            are:layout_constraintEnd_toEndOf="parent"
+            are:layout_constraintHorizontal_bias="0.5"
+            are:layout_constraintStart_toEndOf="@+id/btnDelete"
             are:layout_constraintTop_toTopOf="parent" />
 
 

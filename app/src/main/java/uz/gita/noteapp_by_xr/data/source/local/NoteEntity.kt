@@ -10,7 +10,8 @@ data class NoteEntity(
     val id: Long,
     val title: String,
     val description: String,
-    val date: String
+    val date: String,
+    val colorNumber: Int
 ) {
-    fun toNoteData() = NoteData(id, title, description, date)
+    fun toNoteData() = NoteData(id, title, description, date, colorNumber)
 }

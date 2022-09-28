@@ -39,19 +39,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <View
+        <ImageView
             android:id="@+id/item_color"
             android:layout_width="match_parent"
             android:layout_height="12dp"
-            android:background="#FFB300" />
+             />
 
 
-        <View
+        <ImageView
             android:id="@+id/item_bottom"
             android:layout_width="match_parent"
             android:layout_height="24dp"
             android:layout_gravity="bottom"
-            android:background="#FFB300" />
+             />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -90,7 +90,7 @@
         android:layout_marginBottom="1dp"
         android:elevation="10dp"
         android:text="2022.12.01 22:03"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
         app:layout_constraintEnd_toEndOf="@+id/materialCardView" />
@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.22" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"

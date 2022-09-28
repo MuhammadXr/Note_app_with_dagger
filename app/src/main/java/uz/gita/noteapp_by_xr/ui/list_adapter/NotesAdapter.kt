@@ -1,11 +1,13 @@
 package uz.gita.noteapp_by_xr.ui.list_adapter
 
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,14 +17,20 @@ import com.chinalwb.are.render.AreTextView
 import com.google.android.material.card.MaterialCardView
 import uz.gita.noteapp_by_xr.R
 import uz.gita.noteapp_by_xr.data.models.NoteData
+import uz.gita.noteapp_by_xr.utils.getDrawables
 
 
 class NotesAdapter: ListAdapter<NoteData, NotesAdapter.Holder>(CallBack) {
 
     private var onClickListener: ((NoteData) -> Unit)? = null
 
+    private var onLongClickListener: ((NoteData) -> Unit)? = null
+
     fun setOnClickListener(block: ((NoteData) -> Unit)){
         onClickListener = block
+    }
+    fun setOnLongClickListener(block: ((NoteData) -> Unit)){
+        onLongClickListener = block
     }
 
 
@@ -32,14 +40,19 @@ class NotesAdapter: ListAdapter<NoteData, NotesAdapter.Holder>(CallBack) {
         val desc: AreTextView = view.findViewById(R.id.note_text)
         val date: TextView = view.findViewById(R.id.note_date)
         val card : MaterialCardView = view.findViewById(R.id.materialCardView)
-        val topBar: View = view.findViewById(R.id.item_color)
-        val bottomBar: View = view.findViewById(R.id.item_bottom)
+        val topBar: ImageView = view.findViewById(R.id.item_color)
+        val bottomBar: ImageView = view.findViewById(R.id.item_bottom)
 
         fun bind(position: Int) {
             title.text = getItem(position).title
             val html = getItem(position).description
             desc.fromHtml(html)
             date.text = getItem(position).date
+
+            topBar.setImageResource(getItem(position).colorNumber.getDrawables())
+            bottomBar.setImageResource(getItem(position).colorNumber.getDrawables())
+
+            Log.d("TTT", "${getItem(position).colorNumber.getDrawables()}  ${R.drawable.color_pick_pink}")
 
             card.setOnClickListener{
                 onClickListener?.invoke(getItem(position))
@@ -68,7 +81,7 @@ class NotesAdapter: ListAdapter<NoteData, NotesAdapter.Holder>(CallBack) {
         }
 
         override fun areContentsTheSame(oldItem: NoteData, newItem: NoteData): Boolean {
-            return oldItem.id == newItem.id && oldItem.date == newItem.date && oldItem.description == newItem.description
+            return oldItem.id == newItem.id && oldItem.date == newItem.date && oldItem.description == newItem.description && oldItem.colorNumber == newItem.colorNumber
         }
 
     }

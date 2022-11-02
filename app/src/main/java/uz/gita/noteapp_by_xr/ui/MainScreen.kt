@@ -1,8 +1,12 @@
 package uz.gita.noteapp_by_xr.ui
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.StateListDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
@@ -16,18 +20,23 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import uz.gita.noteapp_by_xr.R
 import uz.gita.noteapp_by_xr.data.models.NoteData
+import uz.gita.noteapp_by_xr.databinding.FragmentMainBinding
 import uz.gita.noteapp_by_xr.presenter.MainViewModel
 import uz.gita.noteapp_by_xr.presenter.impl.MainViewModelImpl
 import uz.gita.noteapp_by_xr.presenter.impl.MainViewModelImpl2
 import uz.gita.noteapp_by_xr.ui.list_adapter.NotesAdapter
 import uz.gita.noteapp_by_xr.ui.viewpager_adapter.ScreenAdapter
+import uz.gita.noteapp_by_xr.utils.selectedBg
+import uz.gita.noteapp_by_xr.utils.simpleBg
 
 class MainScreen : Fragment(R.layout.fragment_main) {
 
     private val viewModel: MainViewModel by viewModels<MainViewModelImpl>()
+    private val viewBinding by viewBinding(FragmentMainBinding::bind)
     //private lateinit var viewPager: ViewPager2
     private lateinit var noteList: RecyclerView
     private lateinit var btnDeleteAll :ImageButton
@@ -35,16 +44,27 @@ class MainScreen : Fragment(R.layout.fragment_main) {
 
     private lateinit var btnAdd:FloatingActionButton
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         subscribeOneShotObservers()
 
-        viewModel.showDeleteDialogLiveData.observe(this){
 
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        viewBinding.priorityHigh.setOnClickListener {
+            viewBinding.priorityHighChk.isChecked = !viewBinding.priorityHighChk.isChecked
+        }
+
+        viewBinding.priorityMedium.setOnClickListener {
+            viewBinding.priorityMediumChk.isChecked = !viewBinding.priorityMediumChk.isChecked
+        }
+
+        viewBinding.prioritySimple.setOnClickListener {
+            viewBinding.prioritySimpleChk.isChecked = !viewBinding.prioritySimpleChk.isChecked
+        }
 
         view.apply {
 //            viewPager = findViewById(R.id.viewPager_main)

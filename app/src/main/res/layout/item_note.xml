@@ -10,7 +10,7 @@
         android:id="@+id/note_text"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/item_note_bg_select"
+        android:background="?android:selectableItemBackgroundBorderless"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center"

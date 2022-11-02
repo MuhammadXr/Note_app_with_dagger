@@ -3,13 +3,16 @@ package uz.gita.noteapp_by_xr.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.chinalwb.are.AREditText
 import com.chinalwb.are.AREditor
 import com.chinalwb.are.colorpicker.ColorPickerView
@@ -25,6 +28,7 @@ import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.widget.textChanges
 import uz.gita.noteapp_by_xr.R
 import uz.gita.noteapp_by_xr.data.models.NoteData
+import uz.gita.noteapp_by_xr.databinding.FragmentAddNoteScreenBinding
 import uz.gita.noteapp_by_xr.presenter.AddNoteViewModel
 import uz.gita.noteapp_by_xr.presenter.impl.AddNoteViewModelImpl
 import uz.gita.noteapp_by_xr.ui.dialogs.ColorPickDialog
@@ -45,6 +49,7 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
     private var colorNumber = R.drawable.color_pick_yellow
 
     private val viewModel: AddNoteViewModel by viewModels<AddNoteViewModelImpl>()
+    private val viewBinding by viewBinding(FragmentAddNoteScreenBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +58,15 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val items = listOf(
+            "High",
+            "Medium",
+            "Simple")
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
+        (viewBinding.menu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+
         view.apply {
+
 
             btnBack = findViewById(R.id.btnBackFromAdd)
             btnSave = findViewById(R.id.btnSave)
@@ -77,8 +90,6 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
             val left: IARE_ToolItem = ARE_ToolItem_AlignmentLeft()
             val center: IARE_ToolItem = ARE_ToolItem_AlignmentCenter()
             val right: IARE_ToolItem = ARE_ToolItem_AlignmentRight()
-            val image: IARE_ToolItem = ARE_ToolItem_Image()
-            val video: IARE_ToolItem = ARE_ToolItem_Video()
             val at: IARE_ToolItem = ARE_ToolItem_At()
             mToolbar.addToolbarItem(bold)
             mToolbar.addToolbarItem(italic)
@@ -95,25 +106,11 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
             mToolbar.addToolbarItem(left)
             mToolbar.addToolbarItem(center)
             mToolbar.addToolbarItem(right)
-            mToolbar.addToolbarItem(image)
-            mToolbar.addToolbarItem(video)
             mToolbar.addToolbarItem(at)
             mEditText = findViewById(R.id.arEditText)
             mEditText.setToolbar(mToolbar)
 
 
-//            val html = """
-//            <p style="text-align: center;"><strong>New Feature in 0.1.2</strong></p>
-//            <p style="text-align: center;">&nbsp;</p>
-//            <p style="text-align: left;"><span style="color: #3366ff;">In this release, you have a new usage with ARE.</span></p>
-//            <p style="text-align: left;">&nbsp;</p>
-//            <p style="text-align: left;"><span style="color: #3366ff;">AREditText + ARE_Toolbar, you are now able to control the position of the input area and where to put the toolbar at and, what ToolItems you'd like to have in the toolbar. </span></p>
-//            <p style="text-align: left;">&nbsp;</p>
-//            <p style="text-align: left;"><span style="color: #3366ff;">You can not only define the Toolbar (and it's style), you can also add your own ARE_ToolItem with your style into ARE.</span></p>
-//            <p style="text-align: left;">&nbsp;</p>
-//            <p style="text-align: left;"><span style="color: #ff00ff;"><em><strong>Why not give it a try now?</strong></em></span></p>
-//            """.trimIndent()
-//            mEditText.fromHtml(html)
 
             val imageView: ImageView = findViewById(R.id.arrow)
             if (mToolbar is ARE_ToolbarDefault) {
@@ -160,7 +157,7 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
                 .launchIn(lifecycleScope)
 
             btnSave.setOnClickListener {
-
+                
                 val title = titleInput.text.toString()
                 val desc = mEditText.html
                 val date = SimpleDateFormat("yyyy.mm.dd hh:mm", Locale.CANADA).format(Date())
@@ -195,4 +192,6 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
         }
 
     }
+
+
 }

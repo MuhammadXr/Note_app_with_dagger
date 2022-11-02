@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import uz.gita.noteapp_by_xr.data.models.FilterData
 import uz.gita.noteapp_by_xr.data.models.NoteData
 import uz.gita.noteapp_by_xr.domain.usecase.*
 import uz.gita.noteapp_by_xr.domain.usecase.impl.DeleteAllNoteUseCaseImpl
 import uz.gita.noteapp_by_xr.domain.usecase.impl.DeleteNoteUseCaseImpl
+import uz.gita.noteapp_by_xr.domain.usecase.impl.GetByTagUseCaseImpl
 import uz.gita.noteapp_by_xr.domain.usecase.impl.GetNotesUseCaseImpl
 import uz.gita.noteapp_by_xr.presenter.MainViewModel
 import uz.gita.noteapp_by_xr.utils.eventLiveData
@@ -22,6 +24,7 @@ class MainViewModelImpl() : MainViewModel, ViewModel() {
     private val getNotesUseCase: GetNotesUseCase = GetNotesUseCaseImpl()
     private val deleteAllNoteUseCase: DeleteAllNoteUseCase = DeleteAllNoteUseCaseImpl()
     private val deleteNoteUseCase: DeleteNoteUseCase = DeleteNoteUseCaseImpl()
+    private val getFilterList: GetByTagUseCase = GetByTagUseCaseImpl()
 
     override fun openAddNoteScreen() {
         openAddNoteLiveData.value = Unit
@@ -44,6 +47,14 @@ class MainViewModelImpl() : MainViewModel, ViewModel() {
     override fun deleteAllNotes() {
         viewModelScope.launch {
             deleteAllNoteUseCase.deleteAllNotes()
+        }
+    }
+
+    override fun filterData(filterData: FilterData) {
+        viewModelScope.launch {
+            getFilterList.getByTag(filterData).collectLatest {
+                notesListLivedata.value = it
+            }
         }
     }
 

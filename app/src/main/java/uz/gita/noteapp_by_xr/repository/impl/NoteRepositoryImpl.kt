@@ -4,6 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import uz.gita.noteapp_by_xr.data.models.FilterData
 import uz.gita.noteapp_by_xr.data.models.NoteData
 import uz.gita.noteapp_by_xr.data.source.local.AppDatabase
 import uz.gita.noteapp_by_xr.repository.NoteRepository
@@ -34,6 +35,14 @@ class NoteRepositoryImpl : NoteRepository {
                 listElement.toNoteData()
             }
         }.flowOn(Dispatchers.IO)
+
+    override fun getByTag(filterData: FilterData): Flow<List<NoteData>> {
+        return noteDao.getByTag(filterData.simple,filterData.medium,filterData.high).map { flowItem ->
+            flowItem.map { listItem ->
+                listItem.toNoteData()
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 
     companion object {
         private lateinit var instance: NoteRepository

@@ -1,6 +1,7 @@
 package uz.gita.noteapp_by_xr.presenter
 
 import androidx.lifecycle.LiveData
+import uz.gita.noteapp_by_xr.data.models.FilterData
 import uz.gita.noteapp_by_xr.data.models.NoteData
 
 interface MainViewModel {
@@ -20,5 +21,7 @@ interface MainViewModel {
     fun deleteNote(data: NoteData)
 
     fun deleteAllNotes()
+
+    fun filterData(filterData: FilterData)
 
 }

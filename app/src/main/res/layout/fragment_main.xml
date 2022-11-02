@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#DA8A83"
     tools:context=".ui.MainScreen">
 
     <View
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="#FF865E"
+        android:background="#F44336"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +37,7 @@
         android:layout_marginStart="24dp"
         android:text="Notes"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/action_bar"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,16 +52,131 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/action_bar" />
 
+    <LinearLayout
+        android:id="@+id/tag_l"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:padding="2dp"
+        android:gravity="start|center"
+        app:layout_constraintBottom_toTopOf="@+id/notes_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/action_bar"
+        >
+
+
+        <TextView
+            android:id="@+id/tag_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:gravity="center"
+            android:text="Priority: "
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
+        <LinearLayout
+            android:id="@+id/priority_high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tag_text_background"
+            android:gravity="center"
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_marginHorizontal="4dp"
+            >
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/priority_high_chk"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="4dp"
+                style="@style/Widget.Material3.CompoundButton.CheckBox"
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:gravity="center"
+                android:text="High"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/priority_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tag_text_background"
+            android:gravity="center"
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_marginHorizontal="4dp"
+            >
+            <CheckBox
+                android:id="@+id/priority_medium_chk"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="4dp"
+                style="@style/Widget.Material3.CompoundButton.CheckBox"
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:gravity="center"
+                android:text="Medium"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/priority_simple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:clickable="true"
+            android:background="@drawable/tag_text_background"
+            android:gravity="center"
+            android:layout_marginHorizontal="4dp"
+            >
+            <CheckBox
+                android:id="@+id/priority_simple_chk"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="4dp"
+                style="@style/Widget.Material3.CompoundButton.CheckBox"
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="6dp"
+                android:gravity="center"
+
+                android:text="Simple"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notes_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="10dp"
-        android:background="#ECECEC"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        app:layout_constraintTop_toBottomOf="@+id/action_bar"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tag_l"
+        app:spanCount="2"
         tools:listitem="@layout/item_note" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

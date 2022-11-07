@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:are="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.EditNoteScreen">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,80 +11,75 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentTop="true"
-        android:background="#FF865E"
-        are:layout_constraintEnd_toEndOf="parent"
-        are:layout_constraintStart_toStartOf="parent"
-        are:layout_constraintTop_toTopOf="parent">
+        android:background="#F1F1F1">
 
         <ImageButton
             android:id="@+id/btnBackFromAdd"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:backgroundTint="#00000000"
-            android:scaleX=".8"
-            android:scaleY=".8"
+            app:tint = "@color/black"
+            android:scaleX=".7"
+            android:scaleY=".7"
             android:layout_marginHorizontal="4dp"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toStartOf="@+id/text_input_layout"
-            are:layout_constraintHorizontal_bias="0.5"
-            are:layout_constraintStart_toStartOf="parent"
-            are:layout_constraintTop_toTopOf="parent"
-            are:srcCompat="@drawable/arrow_back_40" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_back_40"
+            android:contentDescription="TODO" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/text_input_layout"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            are:cardCornerRadius="15dp"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toStartOf="@+id/colorPick"
-            are:layout_constraintStart_toEndOf="@+id/btnBackFromAdd"
-            are:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/colorPick"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/menu"
+            app:boxBackgroundColor="#D4D4D4"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:hint="Priority"
+            >
 
-            <com.google.android.material.textfield.TextInputLayout
-
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Note Name">
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#fff"
-
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/colorPick"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            are:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circleImageView"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circleImageView"
             android:clickable="true"
             android:focusable="true"
-            are:srcCompat="@drawable/color_pick_orange"
+            app:srcCompat="@drawable/color_pick_orange"
             android:layout_marginHorizontal="4dp"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toStartOf="@+id/btnDelete"
-            are:layout_constraintHorizontal_bias="0.5"
-            are:layout_constraintStart_toEndOf="@+id/text_input_layout"
-            are:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/pick"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:padding="1dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
+            android:contentDescription="TODO"
+            android:padding="1dp"
             android:rotation="-20"
-            are:layout_constraintTop_toTopOf="@id/colorPick"
-            are:layout_constraintBottom_toBottomOf="@id/colorPick"
-            are:layout_constraintStart_toStartOf="@id/colorPick"
-            are:layout_constraintEnd_toEndOf="@id/colorPick"
-            are:srcCompat="@drawable/ic_baseline_colorize_24" />
+            app:layout_constraintBottom_toBottomOf="@id/colorPick"
+            app:layout_constraintEnd_toEndOf="@id/colorPick"
+            app:layout_constraintStart_toStartOf="@id/colorPick"
+            app:layout_constraintTop_toTopOf="@id/colorPick"
+            app:srcCompat="@drawable/ic_baseline_color_lens_24" />
 
         <ImageButton
             android:id="@+id/btnDelete"
@@ -94,28 +89,25 @@
             android:layout_marginHorizontal="4dp"
             android:scaleX=".8"
             android:scaleY=".8"
+            app:tint = "@color/black"
             android:src="@drawable/ic_baseline_delete_forever_24"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toStartOf="@id/btnSave"
-            are:layout_constraintHorizontal_bias="0.5"
-            are:layout_constraintStart_toEndOf="@+id/colorPick"
-            are:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnSave"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageButton
             android:id="@+id/btnSave"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:backgroundTint="#00000000"
             android:layout_marginHorizontal="4dp"
-            android:scaleX=".8"
-            android:scaleY=".8"
-            android:src="@drawable/ic_baseline_save_40"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toEndOf="parent"
-            are:layout_constraintHorizontal_bias="0.5"
-            are:layout_constraintStart_toEndOf="@+id/btnDelete"
-            are:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/ic_outline_check_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -128,17 +120,37 @@
         android:layout_below="@id/action_bar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:background="@android:color/white"
-        are:layout_constraintBottom_toTopOf="@+id/bottombar"
-        are:layout_constraintTop_toBottomOf="@+id/action_bar">
+        android:background="@android:color/white">
 
-        <com.chinalwb.are.AREditText
-            android:id="@+id/arEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top|start"
-            android:hint="Your EditText goes here"
-            android:textSize="50sp" />
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/text_input"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="top"
+                android:layout_margin="12dp"
+                android:textSize="18sp"
+                android:background="#00000000"
+                android:hint="Title..."
+                style="edittext"
+                android:autofillHints="name" />
+
+
+            <com.chinalwb.are.AREditText
+                android:id="@+id/arEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:hint="Your text goes here"
+                android:minHeight="48dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
@@ -147,38 +159,39 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:weightSum="1000"
-        are:layout_constraintBottom_toBottomOf="parent"
-        are:layout_constraintEnd_toEndOf="parent"
-        are:layout_constraintStart_toStartOf="parent">
+        android:weightSum="1000">
+
 
         <com.chinalwb.are.styles.toolbar.ARE_ToolbarDefault
             android:id="@+id/areToolbar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="900"
-            android:background="@color/teal_200"
+            android:background="#F19090"
+            android:contentDescription="@string/app_name"
             android:gravity="center_vertical" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:background="@color/teal_700" />
+            android:background="#D81B60" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="95"
-            android:background="@color/purple_200"
+            android:background="#FFB300"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/arrow"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                are:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
+                app:tint="@color/black"
+                app:srcCompat="@drawable/ic_baseline_arrow_forward_24"
+                android:contentDescription="das" />
         </LinearLayout>
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

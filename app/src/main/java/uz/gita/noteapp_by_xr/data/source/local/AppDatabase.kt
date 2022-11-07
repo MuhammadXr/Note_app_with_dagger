@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
         fun init(context: Context) {
             if (!Companion::_instance.isInitialized)
                 _instance =
-                    Room.databaseBuilder(context, AppDatabase::class.java, "note_database").build()
+                    Room.databaseBuilder(context, AppDatabase::class.java, "note_database").createFromAsset("note_database.db").build()
         }
 
         val INSTANCE get() = _instance

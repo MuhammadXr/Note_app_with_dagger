@@ -8,14 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.chinalwb.are.AREditText
 import com.chinalwb.are.styles.toolbar.ARE_ToolbarDefault
 import com.chinalwb.are.styles.toolbar.IARE_Toolbar
@@ -29,6 +27,7 @@ import kotlinx.coroutines.flow.onEach
 import ru.ldralighieri.corbind.widget.textChanges
 import uz.gita.noteapp_by_xr.R
 import uz.gita.noteapp_by_xr.data.models.NoteData
+import uz.gita.noteapp_by_xr.databinding.FragmentEditNoteScreenBinding
 import uz.gita.noteapp_by_xr.presenter.AddNoteViewModel
 import uz.gita.noteapp_by_xr.presenter.UpdateNoteViewModel
 import uz.gita.noteapp_by_xr.presenter.impl.AddNoteViewModelImpl
@@ -47,11 +46,12 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
     private lateinit var btnSave: ImageButton
     private lateinit var btnBack: ImageButton
     private lateinit var btnDelete: ImageButton
-    private lateinit var titleInput: TextInputEditText
+    private lateinit var titleInput: EditText
     private lateinit var colorPicker: ShapeableImageView
     private var colorNumber = R.drawable.color_pick_yellow
 
     private val viewModel: UpdateNoteViewModel by viewModels<UpdateNoteViewModelImpl>()
+    private val viewBinding by viewBinding(FragmentEditNoteScreenBinding::bind)
 
 
     private lateinit var noteData: NoteData
@@ -64,6 +64,15 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val items = listOf(
+            "High",
+            "Medium",
+            "Default")
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
+        (viewBinding.menu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+
+
 
         view.apply {
 
@@ -114,6 +123,7 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
             mEditText.fromHtml(noteData.description)
             titleInput.text = Editable.Factory().newEditable(noteData.title)
 
+
             val imageView: ImageView = findViewById(R.id.arrow)
             if (mToolbar is ARE_ToolbarDefault) {
                 (mToolbar as ARE_ToolbarDefault).viewTreeObserver.addOnScrollChangedListener {
@@ -163,6 +173,25 @@ class EditNoteScreen : Fragment(R.layout.fragment_edit_note_screen) {
                 noteData.description = desc
                 noteData.date = date
                 noteData.colorNumber = colorNumber
+
+                val priority = viewBinding.menu.editText?.text.toString()
+                when(priority){
+                    "High" -> {
+                        noteData.high = true
+                        noteData.medium = false
+                        noteData.simple = false
+                    }
+                    "Medium" -> {
+                        noteData.high = false
+                        noteData.medium = true
+                        noteData.simple = false
+                    }
+                    "Default" -> {
+                        noteData.high = false
+                        noteData.medium = false
+                        noteData.simple = true
+                    }
+                }
 
                 viewModel.update(noteData)
                 Toast.makeText(requireContext(), "SAVED", Toast.LENGTH_SHORT).show()

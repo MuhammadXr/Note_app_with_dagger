@@ -2,11 +2,17 @@ package uz.gita.noteapp_by_xr.presenter.impl
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import uz.gita.noteapp_by_xr.data.models.FilterData
 import uz.gita.noteapp_by_xr.data.models.NoteData
-import uz.gita.noteapp_by_xr.domain.usecase.*
+import uz.gita.noteapp_by_xr.domain.usecase.DeleteAllNoteUseCase
+import uz.gita.noteapp_by_xr.domain.usecase.DeleteNoteUseCase
+import uz.gita.noteapp_by_xr.domain.usecase.GetByTagUseCase
+import uz.gita.noteapp_by_xr.domain.usecase.GetNotesUseCase
 import uz.gita.noteapp_by_xr.domain.usecase.impl.DeleteAllNoteUseCaseImpl
 import uz.gita.noteapp_by_xr.domain.usecase.impl.DeleteNoteUseCaseImpl
 import uz.gita.noteapp_by_xr.domain.usecase.impl.GetByTagUseCaseImpl
@@ -24,7 +30,6 @@ class MainViewModelImpl() : MainViewModel, ViewModel() {
     private val getNotesUseCase: GetNotesUseCase = GetNotesUseCaseImpl()
     private val deleteAllNoteUseCase: DeleteAllNoteUseCase = DeleteAllNoteUseCaseImpl()
     private val deleteNoteUseCase: DeleteNoteUseCase = DeleteNoteUseCaseImpl()
-    private val getFilterList: GetByTagUseCase = GetByTagUseCaseImpl()
 
     override fun openAddNoteScreen() {
         openAddNoteLiveData.value = Unit
@@ -51,10 +56,23 @@ class MainViewModelImpl() : MainViewModel, ViewModel() {
     }
 
     override fun filterData(filterData: FilterData) {
-        viewModelScope.launch {
-            getFilterList.getByTag(filterData).collectLatest {
-                notesListLivedata.value = it
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+
+            getNotesUseCase.getAllNotes().onEach{
+                    list ->
+                val filteredList = ArrayList<NoteData>()
+
+                list.forEach {
+                    if (filterData.high && it.high)
+                        filteredList.add(it)
+                    else if (filterData.medium && it.medium)
+                        filteredList.add(it)
+                    else if (filterData.simple && it.simple)
+                        filteredList.add(it)
+                }
+
+                notesListLivedata.postValue(filteredList)
+            }.collect()
         }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:are="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentTop="true"
-        android:background="#FF865E">
+        android:background="#F1F1F1">
 
         <ImageButton
             android:id="@+id/btnBackFromAdd"
@@ -21,12 +21,13 @@
             android:layout_marginHorizontal="4dp"
             android:backgroundTint="#00000000"
             android:contentDescription="@string/app_name"
-            android:scaleX=".8"
-            android:scaleY=".8"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintStart_toStartOf="parent"
-            are:layout_constraintTop_toTopOf="parent"
-            are:srcCompat="@drawable/arrow_back_40" />
+            app:tint = "@color/black"
+            android:scaleX=".7"
+            android:scaleY=".7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_back_40" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -35,11 +36,12 @@
             android:layout_marginHorizontal="6dp"
             android:clickable="true"
             android:focusable="true"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toStartOf="@+id/colorPick"
-            are:layout_constraintHorizontal_bias="0.5"
-            are:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/colorPick"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/menu"
+            app:boxBackgroundColor="#DFDFDF"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:hint="Priority"
             >
@@ -48,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                />
+                tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,41 +63,40 @@
             android:clickable="true"
             android:contentDescription="@string/app_name"
             android:focusable="true"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toStartOf="@+id/btnSave"
-            are:layout_constraintHorizontal_bias="0.5"
-            are:layout_constraintTop_toTopOf="parent"
-            are:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circleImageView"
-            are:srcCompat="@drawable/color_pick_orange" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSave"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.circleImageView"
+            app:srcCompat="@drawable/color_pick_orange" />
 
         <ImageView
             android:id="@+id/pick"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
+            android:contentDescription="TODO"
             android:padding="1dp"
             android:rotation="-20"
-            are:layout_constraintBottom_toBottomOf="@id/colorPick"
-            are:layout_constraintEnd_toEndOf="@id/colorPick"
-            are:layout_constraintStart_toStartOf="@id/colorPick"
-            are:layout_constraintTop_toTopOf="@id/colorPick"
-            are:srcCompat="@drawable/ic_baseline_colorize_24" />
+            app:layout_constraintBottom_toBottomOf="@id/colorPick"
+            app:layout_constraintEnd_toEndOf="@id/colorPick"
+            app:layout_constraintStart_toStartOf="@id/colorPick"
+            app:layout_constraintTop_toTopOf="@id/colorPick"
+            app:srcCompat="@drawable/ic_baseline_color_lens_24" />
 
 
         <ImageButton
             android:id="@+id/btnSave"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginHorizontal="6dp"
+            android:layout_marginHorizontal="12dp"
             android:backgroundTint="#00000000"
             android:contentDescription="@string/app_name"
-            android:scaleX=".8"
-            android:scaleY=".8"
-            android:src="@drawable/ic_baseline_save_40"
-            are:layout_constraintBottom_toBottomOf="parent"
-            are:layout_constraintEnd_toEndOf="parent"
-            are:layout_constraintHorizontal_bias="0.5"
-            are:layout_constraintTop_toTopOf="parent" />
+            app:tint = "#000"
+            android:src="@drawable/ic_outline_check_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -116,22 +117,17 @@
             android:orientation="vertical">
 
 
-            <com.google.android.material.textfield.TextInputLayout
-
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/text_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_gravity="top"
-                android:hint="Title ">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_input"
-                    android:layout_marginHorizontal="6dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FFEAEA"
-                    android:textSize="18sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_margin="12dp"
+                android:textSize="18sp"
+                android:background="#00000000"
+                android:hint="Title..."
+                style="edittext"
+                android:autofillHints="name" />
 
 
             <com.chinalwb.are.AREditText
@@ -139,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:backgroundTint="#FFBDBD"
+                android:backgroundTint="#00FFBDBD"
                 android:hint="Your text goes here"
                 android:minHeight="48dp"
                 android:textSize="16sp" />
@@ -160,7 +156,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="900"
-            android:background="#FF865E"
+            android:background="#F19090"
             android:contentDescription="@string/app_name"
             android:gravity="center_vertical" />
 
@@ -174,15 +170,15 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="95"
-            android:background="#FFB300"
+            android:background="#FFC02D"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/arrow"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                are:tint="@color/white"
-                are:srcCompat="@drawable/ic_baseline_arrow_forward_24"
+                app:tint="@color/black"
+                app:srcCompat="@drawable/ic_baseline_arrow_forward_24"
                 android:contentDescription="das" />
         </LinearLayout>
     </LinearLayout>

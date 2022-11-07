@@ -1,6 +1,7 @@
 package uz.gita.noteapp_by_xr.ui.list_adapter
 
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,7 @@ class NotesAdapter: ListAdapter<NoteData, NotesAdapter.Holder>(CallBack) {
         val topBar: ImageView = view.findViewById(R.id.item_color)
         val bottomBar: ImageView = view.findViewById(R.id.item_bottom)
 
+        @SuppressLint("ClickableViewAccessibility")
         fun bind(position: Int) {
             title.text = getItem(position).title
             val html = getItem(position).description
@@ -54,11 +56,12 @@ class NotesAdapter: ListAdapter<NoteData, NotesAdapter.Holder>(CallBack) {
 
             Log.d("TTT", "${getItem(position).colorNumber.getDrawables()}  ${R.drawable.color_pick_pink}")
 
+            card.bringToFront()
             card.setOnClickListener{
                 onClickListener?.invoke(getItem(position))
             }
-
-            desc.setOnClickListener{
+//
+            desc.setOnClickListener {
                 onClickListener?.invoke(getItem(position))
             }
 
@@ -81,7 +84,13 @@ class NotesAdapter: ListAdapter<NoteData, NotesAdapter.Holder>(CallBack) {
         }
 
         override fun areContentsTheSame(oldItem: NoteData, newItem: NoteData): Boolean {
-            return oldItem.id == newItem.id && oldItem.date == newItem.date && oldItem.description == newItem.description && oldItem.colorNumber == newItem.colorNumber
+            return oldItem.id == newItem.id
+                    && oldItem.date == newItem.date
+                    && oldItem.description == newItem.description
+                    && oldItem.colorNumber == newItem.colorNumber
+                    && oldItem.high == newItem.high
+                    && oldItem.medium == newItem.medium
+                    && oldItem.simple == newItem.simple
         }
 
     }

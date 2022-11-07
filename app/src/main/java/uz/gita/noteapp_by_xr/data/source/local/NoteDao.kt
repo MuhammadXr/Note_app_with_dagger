@@ -22,6 +22,6 @@ interface NoteDao {
     @Query("SELECT * FROM NoteEntity")
     fun getNotes(): Flow<List<NoteEntity>>
 
-    @Query("SELECT * FROM NoteEntity WHere high=:high and simple=:simple and medium=:medium")
+    @Query("SELECT * FROM NoteEntity Where high=:high or simple=:simple or medium=:medium")
     fun getByTag(simple: Boolean, medium:Boolean, high: Boolean): Flow<List<NoteEntity>>
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".ui.Splash">
 
 
@@ -12,8 +14,7 @@
         android:layout_gravity="center"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:tint = "#7CB342"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src="@drawable/logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,6 +23,6 @@
         android:textSize="32sp"
         android:text="NOTE APP"
         android:layout_gravity="center"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="12dp"
         />
-</FrameLayout>
+</LinearLayout>

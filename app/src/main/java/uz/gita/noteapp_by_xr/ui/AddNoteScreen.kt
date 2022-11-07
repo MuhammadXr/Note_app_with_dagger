@@ -44,7 +44,7 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
 
     private lateinit var btnSave: ImageButton
     private lateinit var btnBack: ImageButton
-    private lateinit var titleInput: TextInputEditText
+    private lateinit var titleInput: EditText
     private lateinit var colorPicker: ShapeableImageView
     private var colorNumber = R.drawable.color_pick_yellow
 
@@ -160,14 +160,36 @@ class AddNoteScreen : Fragment(R.layout.fragment_add_note_screen) {
                 
                 val title = titleInput.text.toString()
                 val desc = mEditText.html
-                val date = SimpleDateFormat("yyyy.mm.dd hh:mm", Locale.CANADA).format(Date())
+                val date = SimpleDateFormat("yyyy.mm.dd HH:mm", Locale.ROOT).format(Date())
+
+                val priority = viewBinding.menu.editText?.text.toString()
+                var high = false
+                var medium = false
+                var simple = false
+                when(priority){
+                    "High" -> {
+                        high = true
+                    }
+                    "Medium" -> {
+                        medium = true
+                    }
+                    "Default" -> {
+                        simple = true
+                    }
+                    else -> {
+                        simple = true
+                    }
+                }
 
                 val note = NoteData(
                     0,
                     title,
                     desc,
                     date,
-                    colorNumber
+                    colorNumber,
+                    high,
+                    medium,
+                    simple
                 )
 
                 viewModel.addToBase(note)
